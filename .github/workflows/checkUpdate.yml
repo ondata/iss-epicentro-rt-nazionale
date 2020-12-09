@@ -1,0 +1,28 @@
+name: iss R script for Rt calculation updates
+
+on:
+  repository_dispatch:
+  schedule:
+    - cron:  '15 2 * * *'
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Utilizza l'action github checkout@v2, per automatizzare il check-out
+      uses: actions/checkout@v2
+    - name: Installa le dipendenze necessarie
+      run: |-
+        apt-get update && apt-get install -y wget unzip
+    - name: Verifica aggiornamenti
+      run: |-
+        wget --cipher 'DEFAULT:!DH' https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
+        unzip -oj calcolo_rt_italia.zip
+    - name: Committa e pusha se ci sono variazioni nei dati
+      run: |-
+        git config user.name "OndataBot"
+        git config user.email "actions@users.noreply.github.com"
+        git add -A
+        timestamp=$(date --iso-8601=seconds)
+        git commit -m "Datetime: ${timestamp}" || exit 0
+        git push
