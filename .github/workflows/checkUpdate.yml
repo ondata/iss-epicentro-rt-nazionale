@@ -12,13 +12,9 @@ jobs:
     steps:
     - name: Utilizza l'action github checkout@v2, per automatizzare il check-out
       uses: actions/checkout@v2
-    - name: Installa le dipendenze necessarie
-      run: |-
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
     - name: Verifica aggiornamenti
       run: |-
-        wget --cipher 'DEFAULT:!DH' https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
+        wget https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
         unzip -oj calcolo_rt_italia.zip
     - name: Committa e pusha se ci sono variazioni nei dati
       run: |-
