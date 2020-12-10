@@ -1,6 +1,7 @@
 name: iss R script for Rt calculation updates
 
 on:
+  push:
   repository_dispatch:
   schedule:
     - cron:  '15 2 * * *'
