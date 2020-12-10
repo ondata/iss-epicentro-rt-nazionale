@@ -13,7 +13,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Installa le dipendenze necessarie
       run: |-
-        apt-get update && apt-get install -y wget unzip
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
     - name: Verifica aggiornamenti
       run: |-
         wget --cipher 'DEFAULT:!DH' https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
