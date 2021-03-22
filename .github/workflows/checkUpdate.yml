@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Verifica aggiornamenti
       run: |-
-        wget https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
+        wget --cipher 'DEFAULT:!DH' https://www.epicentro.iss.it/coronavirus/open-data/calcolo_rt_italia.zip -O calcolo_rt_italia.zip
         unzip -oj calcolo_rt_italia.zip
     - name: Committa e pusha se ci sono variazioni nei dati
       run: |-
